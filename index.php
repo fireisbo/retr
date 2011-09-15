@@ -1,4 +1,5 @@
 <?php
+// define the consumer key CK="xxxx";
 include("ck.php");
   $title = $_GET['title']; 
  echo <<<EOF
