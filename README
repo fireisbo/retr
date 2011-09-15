@@ -1,0 +1,30 @@
+      Mendeley   Duplicate finding algorithm
+      Overview
+      Find candidate records by searching the "title" as keywords.
+Generally this returns matching titles in the first 20 (maximum examined) results.  If the user also specified a pmid, or DOI then match on those.  Return
+the list of matching results, and total the readers of each 'version' of that title.
+      Algorithm
+      
+         Step 1
+        Search on the title
+      
+      
+        Step 1a
+        Look at results for matching titles, eliminating case, and some common punctuation.  Save matching results.
+      
+      
+        Step 2
+        Look at the results for matching pmid, if specified. Save the matching results.
+      
+      
+        Step 3
+        Look at the results for matching DOI, if specified. Save the matching results.
+      
+      
+        Step 4
+        Add the count of the readers of all matching results.
+      
+      
+        Step 5
+        Report the results.
+      
