@@ -1,0 +1,13 @@
+These scripts provide a background processing
+facility for the mendeley dup finder.
+1) a pipe separated file of format
+Title|Author|doi|pmid
+is deposited by the user interface into the input directory.
+2) the cron script (runmen.sh) runs at desired interval (every hour)
+checking for files in the input directory.  Finding one or more files,
+the oldest file in the input directory is selected for processing, and  
+moving it to the work directory, creating a lock file in that directory
+and executing backproc.sh in the background.  this script might
+run for a really long time (hours) , as we can only do small amounts of work
+every hour -- roughly 20 records per hour are processed because of
+mendeley throttling constraints,
