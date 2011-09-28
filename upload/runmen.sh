@@ -1,5 +1,7 @@
 #!/bin/sh
-uphome="$HOME/www/upload/"    
+# Set this to the home working directory of 
+# the cron scripts.
+uphome="$HOME/www/retract/upload/"    
 log=/tmp/runmen.log
 cd $uphome
 lock="$uphome/work/lock"    
