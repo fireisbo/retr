@@ -7,7 +7,18 @@ is deposited by the user interface into the input directory.
 checking for files in the input directory.  Finding one or more files,
 the oldest file in the input directory is selected for processing, and  
 moving it to the work directory, creating a lock file in that directory
-and executing backproc.sh in the background.  this script might
-run for a really long time (hours) , as we can only do small amounts of work
-every hour -- roughly 20 records per hour are processed because of
-mendeley throttling constraints,
+and executing backproc.sh in the background with the selected file
+as argument.  this script,backproc.sh, might
+run for a seemingling long time (hours) , as we can only do small amounts of work
+every hour -- roughly only 20 records per hour are processed because of
+mendeley throttling constraints.
+while this file exists in the work directory, no other job will be selected
+from the input directory.
+
+3) when backproc.sh finishes, the output file and the input file are moved to
+the output directory, the given email address is sent the output file,
+and the lock is removed from the work directory.
+
+
+The input file is not modified, and the output file is available on the
+web from the output directory.
