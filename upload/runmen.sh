@@ -1,7 +1,12 @@
 #!/bin/sh
-# Set this to the home working directory of 
+# supervise executing the backproc.sh script.
+# that runs in the background.
+# Set uphome to the home working directory of 
 # the cron scripts.
-uphome="$HOME/www/retract/upload/"    
+SCRIPT=`readlink -f $0`
+# Absolute path this script is in, thus /home/user/bin
+SCRIPTPATH=`dirname $SCRIPT`
+uphome="$SCRIPTPATH"    
 log=/tmp/runmen.log
 cd $uphome
 lock="$uphome/work/lock"    

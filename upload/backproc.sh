@@ -1,8 +1,13 @@
 #!/bin/sh
-# start the process.php file in the background
-uphome="$HOME/www/retract/upload"    
+# run the process.php file in the foreground
+# but it might take breaks, and run for several hours.
+SCRIPT=`readlink -f $0`
+# Absolute path this script is in, thus /home/user/bin
+SCRIPTPATH=`dirname $SCRIPT`
+uphome="$SCRIPTPATH"
 log=/tmp/runmen.log
-process=$HOME/www/retract/process.php
+process=$SCRIPTPATH/../process.php
+echo $process
 file="$1"
 ifile=$uphome/input/$file
 wfile=$uphome/work/$file
