@@ -1,8 +1,8 @@
 #!/bin/sh
 # start the process.php file in the background
-uphome="$HOME/www/upload"    
+uphome="$HOME/www/retract/upload"    
 log=/tmp/runmen.log
-process=/home1/fireisbo/www/retract/process.php
+process=$HOME/www/retract/process.php
 file="$1"
 ifile=$uphome/input/$file
 wfile=$uphome/work/$file
