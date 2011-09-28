@@ -78,8 +78,13 @@ if ($ureaders) {
 
  exit (0);
 
+$pagecount = 0;
+
 function mend_api($uuid) {
  global $CK;
+ global $pagecount;
+ $pagecount++;
+ if ($pagecount > 400) { echo "sleeping for 1 hour" ; sleep(3600); $pagecount = 0; }
  $UP="http://api.mendeley.com/oapi/documents/details/$uuid?consumer_key=$CK";
  $utext = file_get_contents($UP);
  $uobj = json_decode($utext);
