@@ -14,6 +14,8 @@ wfile=$uphome/work/$file
 ofile=$uphome/output/$file
 lfile=$uphome/work/lock
 
+dos2unix $ifile
+
 mv $ifile $wfile
 echo $$ > $lfile 
 date >>$log
