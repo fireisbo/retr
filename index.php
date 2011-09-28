@@ -16,17 +16,30 @@ include("ck.php");
 EOF;
 if ($_FILES['uploadedfile']['tmp_name']) {
 $uploaddir = '/home1/fireisbo/www/retract/upload/input/';
+$sfn=$_SERVER["SCRIPT_FILENAME"];
+$sfn = str_replace("/index.php", "",$sfn);
 $newfile = str_replace(" ", "_",basename($_FILES['uploadedfile']['name']));
-$uploadfile = $uploaddir . $newfile;
+$uploadfile = $sfn . '/upload/input/' . $newfile;
 $email = $_POST['email'];
 if (move_uploaded_file($_FILES['uploadedfile']['tmp_name'], $uploadfile)) {
-    echo "File is valid, and was successfully uploaded.\n";
+ echo <<<EOF
+	<fieldset>
+    	<legend>Successful file upload.</legend>
+EOF;
     $fh = fopen($uploadfile,"r+");
+    $lines = 0;
     while ( ($buffer = fgets($fh)) !== false) {
       $data .= $buffer;
+      $lines++;
     }
     $data = "#__email:$email\n" . $data;
-    echo "data is $data";
+    #echo "data is $data";
+    $hrs = ($lines/20) + 1;
+    $hrsx = ($lines/20) + 2;
+    echo "<dl><dt></dt><dd>File has been uploaded. Since it contains $lines lines, it will take";
+    echo "approximately $hrs/$hrsx hrs to process. You will receive an email when it completes.";
+    echo "The file will be available in http://www.fireisborn/retract/upload/output/$newfile.out"; 
+     echo "</dd></dl></fieldset>";
     fclose($fh);
     $fh = fopen($uploadfile,"w+");
     fwrite($fh,$data);
@@ -34,7 +47,7 @@ if (move_uploaded_file($_FILES['uploadedfile']['tmp_name'], $uploadfile)) {
 } else {
     echo "Possible file upload attack!\n";
 }
-exit(0);
+#exit(0);
 
 }
 if($title) {
