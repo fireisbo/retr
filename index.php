@@ -189,6 +189,25 @@ if($title) {
     }
  }
 }
+if ( $otitle != '' && $ureaders) {
+         echo "<fieldset>\n";
+         echo "<legend>Results</legend>\n";
+         echo "<dl>Search:$otitle/doi:$doi/pmid:$pmid</dl>";
+         echo "<dl><b>Matches:</b></dl>";
+         echo "<ul>$ureaders </ul>";
+         echo "<br/><b>Total Readers $tot_readers </b>";
+         echo "<br/><i>Totals increased by one to count </i>";
+         echo "<br/><i>original submitter.</i>";
+         echo "</fieldset>\n";
+} else {
+  if ( $otitle != '' && $ureaders < 1) {
+         echo "<fieldset>\n";
+         echo "<legend>Results</legend>\n";
+         echo "<br/><ul>No matching titles found in Mendeley for: '$otitle'</ul>";
+         echo "</fieldset>\n";
+     }
+}
+
  echo <<<EOF
 <form enctype="multipart/form-data" action="index.php" method="POST" class="niceform">
        <input type="hidden" name="MAX_FILE_SIZE" value="100000" />
@@ -198,7 +217,6 @@ if($title) {
             <dt><label for="title">Title:(required)</label></dt>
             <dd><input type="text" value="$otitle" name="title" id="title" size="80" maxlength="128" /></dd>
         </dl>
-        <dl><dt><b>Try:</b></dt><dd>"Why most published research findings are false."</dd></dl>
         <dl>
             <dt><label for="doi">DOI:</label></dt>
             <dd><input type="text" value="$doi" name="doi" id="doi" size="32" maxlength="128" /></dd>
@@ -239,25 +257,9 @@ are all valid.
 </form>
 EOF;
 
-if ( $otitle != '' && $ureaders) {
-         echo "<fieldset>\n";
-         echo "<legend>Results</legend>\n";
-         echo "<br/><ul>$ureaders </ul>";
-         echo "<br/><b>Total Readers $tot_readers </b>";
-         echo "<br/><i>Totals increased by one to count </i>";
-         echo "<br/><i>original submitter.</i>";
-         echo "</fieldset>\n";
-} else {
-  if ( $otitle != '' && $ureaders < 1) {
-         echo "<fieldset>\n";
-         echo "<legend>Results</legend>\n";
-         echo "<br/><ul>No matching titles found in Mendeley for: '$otitle'</ul>";
-         echo "</fieldset>\n";
-     }
-}
  echo <<<EOF
 <h3 class="s navLicense"><i>License</i></h3> 
-            <p class="list gray">Niceforms by <a href="http://www.emblematiq.com/">Lucian Slatineanu</a><br />is licensed under a <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-Share Alike 3.0 Unported License</a><br />In other words, Niceforms is completely free for both personal and commercial use as long as credits remain intact within the source files</p> 
+            <p class="list gray">Niceforms by <a href="http://www.emblematiq.com/">Lucian Slatineanu</a><br />is licensed under a <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-Share Alike 3.0 Unported License</a><br />In other words, Niceforms is completely free for both personal and commercial use as long as credits remain intact within the source files.  Retraction software is covered by <a href="COPYING">GPL.</a>The algorithm is described <a href="README">in this file.</a></p> 
 </body>
 </html>
 </p>
