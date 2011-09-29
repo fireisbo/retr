@@ -191,35 +191,46 @@ if($title) {
 <form enctype="multipart/form-data" action="index.php" method="POST" class="niceform">
        <input type="hidden" name="MAX_FILE_SIZE" value="100000" />
 	<fieldset>
-    	<legend>Enter Mendeley Information</legend>
+    	<legend>Search for Articles in Mendeley</legend>
         <dl>
             <dt><label for="title">Title:*</label></dt>
             <dd><input type="text" value="$otitle" name="title" id="title" size="80" maxlength="128" /></dd>
         </dl>
-        <dl>
-            <dt><label for="pmid">PMID:</label></dt>
-            <dd><input type="text" value="$pmid" name="pmid" id="pmid" size="32" maxlength="128" /></dd>
-        </dl>
+        <dl><dt><b>Try:</b></dt><dd>"Why most published research findings are false."</dd></dl>
         <dl>
             <dt><label for="doi">DOI:</label></dt>
             <dd><input type="text" value="$doi" name="doi" id="doi" size="32" maxlength="128" /></dd>
         </dl>
         <dl>
-            <dt><label for="dodata">OR<br/>Put data here<br/>title|auth|doi|pmid</label></dt>
-            <dd><textarea type="text" value="$doi" name="dodata" id="dodata" rows="8" cols="70"></textarea></dd>
+            <dt><label for="pmid">PMID:</label></dt>
+            <dd><input type="text" value="$pmid" name="pmid" id="pmid" size="32" maxlength="128" /></dd>
         </dl>
-        <dl><dt>OR You can upload a file to process.  Supply an email address here.</dt><dd>
-        <input type="text" name="email" id="email" size="32" maxlength="128" />
-        </dd></dl>
-        <dl><dt><label>Choose a file to upload:</label></dt>
+        <dl><dt>OR Choose a file to upload:<br/>
+          <b>See format note below**</b></dt>
         <dd><input name="uploadedfile" type="file" /></dd>
         </dl>
+        <dl><dt>Results will be sent to this email address.</dt><dd>
+        <input type="text" name="email" id="email" size="32" maxlength="128" />
+        </dd></dl>
         <dl><dt><dd>
     	<input type="submit" name="submit" id="submit" value="SUBMIT" />
         </dd></dt>
         </dl>
         <dl><dt>*:</dt><dd>Required</dd></dl>
-        <dl><dt>Try:</dt><dd>"Why most published research findings are false."</dd></dl>
+        <dl><dt>**:</dt><dd>File must have each search on a single line, with fields separated by the '|
+' symbol.  Only the title field is required, but others must be null. For example,
+<br/>
+Why most published research findings are false||| is valid.
+<br/>
+or
+<br/>
+Why most published research findings are false||10.1371/journal.pmed.0020124|
+<br/>
+or
+<br/>
+Why most published research findings are false||10.1371/journal.pmed.0020124|16060722
+
+</dd></dl>
     </fieldset>
     </fieldset>
 
