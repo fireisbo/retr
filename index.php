@@ -116,7 +116,6 @@ if($dodata) {
     }
  }
 }
-
     if ($ureaders) {
          echo "\n";
          echo "Similar Titles\n";
@@ -125,6 +124,9 @@ if($dodata) {
          echo "Totals increased by one to count \n";
          echo "original submitter.\n";
          echo "\n";
+    } else {
+         echo "\n";
+         echo "No matches found for $otitle\n";
     }
   }
          echo "</fieldset>";
@@ -193,7 +195,7 @@ if($title) {
 	<fieldset>
     	<legend>Search for Articles in Mendeley</legend>
         <dl>
-            <dt><label for="title">Title:*</label></dt>
+            <dt><label for="title">Title:(required)</label></dt>
             <dd><input type="text" value="$otitle" name="title" id="title" size="80" maxlength="128" /></dd>
         </dl>
         <dl><dt><b>Try:</b></dt><dd>"Why most published research findings are false."</dd></dl>
@@ -216,41 +218,42 @@ if($title) {
     	<input type="submit" name="submit" id="submit" value="SUBMIT" />
         </dd></dt>
         </dl>
-        <dt><b>Note *</b>:</dt><dd>Required</dd>
-        <dl><dt><b>Note **</b>:</dt><dd>File must have each search on a single line, with fields separated by the '|
-' symbol.  Only the title field is required, but others may be null. 
+        <dl><dt><b>Note **</b>:</dt><dd><p class="compact">File must have each search on a single line, with fields separated by the '|
+' symbol.  Only the title field is required, but others may be empty. 
 <br/>
 title|author|doi|pmid
 <br/>
-For example,
-<br/>
+For example,<br/>
 Why most published research findings are false|||
-<br/>
-or
-<br/>
+<br/>or<br/>
 Why most published research findings are false||10.1371/journal.pmed.0020124|
-<br/>
-or
-<br/>
+<br/>or<br/>
 Why most published research findings are false||10.1371/journal.pmed.0020124|16060722
 <br/>
 are all valid.
 
-</dd></dl>
+</p></dd></dl>
     </fieldset>
     </fieldset>
 
 </form>
 EOF;
 
-if ($ureaders) {
+if ( $otitle != '' && $ureaders) {
          echo "<fieldset>\n";
-         echo "<legend> Similar Titles</legend>\n";
+         echo "<legend>Results</legend>\n";
          echo "<br/><ul>$ureaders </ul>";
          echo "<br/><b>Total Readers $tot_readers </b>";
          echo "<br/><i>Totals increased by one to count </i>";
          echo "<br/><i>original submitter.</i>";
          echo "</fieldset>\n";
+} else {
+  if ( $otitle != '' && $ureaders < 1) {
+         echo "<fieldset>\n";
+         echo "<legend>Results</legend>\n";
+         echo "<br/><ul>No matching titles found in Mendeley for: '$otitle'</ul>";
+         echo "</fieldset>\n";
+     }
 }
  echo <<<EOF
 <h3 class="s navLicense"><i>License</i></h3> 
