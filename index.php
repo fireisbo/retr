@@ -216,8 +216,8 @@ if($title) {
     	<input type="submit" name="submit" id="submit" value="SUBMIT" />
         </dd></dt>
         </dl>
-        <dl><dt>*:</dt><dd>Required</dd></dl>
-        <dl><dt><b>**</b>:</dt><dd>File must have each search on a single line, with fields separated by the '|
+        <dt><b>Note *</b>:</dt><dd>Required</dd>
+        <dl><dt><b>Note **</b>:</dt><dd>File must have each search on a single line, with fields separated by the '|
 ' symbol.  Only the title field is required, but others may be null. 
 <br/>
 title|author|doi|pmid
