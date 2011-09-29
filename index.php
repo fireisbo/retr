@@ -2,6 +2,7 @@
 // define the consumer key CK="xxxx";
 include("ck.php");
   $title = $_POST['title']; 
+  $dodata = $_POST['dodata']; 
  echo <<<EOF
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -51,6 +52,84 @@ EOF;
 #exit(0);
 
 }
+
+if($dodata) {
+  $doarray = explode("\n", $dodata );
+  echo "<fieldset>\n";
+  foreach ($doarray as $buffer) {
+    $ureaders = "";
+    $pos = strpos($buffer, "|");
+    if ($pos === false){ continue;}
+    list($title,$author,$doi,$pmid) = explode('|',$buffer);
+    if($title) {
+    echo "<hr>****" . "Duplication information for \"$title\""  . "\n\n";
+    $tit_enc = urlencode($title);
+    $P="http://api.mendeley.com/oapi/documents/search/$tit_enc?consumer_key=$CK";
+    $text=file_get_contents($P);
+    if ($text == false) { 
+      echo "No details|$title|$doi|$pmid,$enoteid\n" ;  
+    }
+   $obj = json_decode($text);
+   $documents=$obj->documents;
+   $otitle = $title;
+   $title = str_replace(' ', '', $title);
+   $title = str_replace('[', '', $title);
+   $title = str_replace(']', '', $title);
+   $title = str_replace('.', '', $title);
+   $title = str_replace('?', '', $title);
+   $tot_readers = 0;
+   $uvreaders = 0;
+   $found = 0;
+   if ($documents) {
+    $count = count($obj->documents);
+    for ($index=0 ; $index < $count; $index++) {
+       $ftitle = $obj->documents[$index]->title;
+       $fdoi   = 
+          isset($obj->documents[$index]->doi)?
+          $obj->documents[$index]->doi:"No doi";
+       //$ureaders .= "<br/>examined $ftitle ($fdoi)" 
+       //   . print_r($obj->documents[$index]->doi,TRUE);
+       $mtitle = str_replace(' ', '', $obj->documents[$index]->title);
+       $mtitle = str_replace('[', '', $mtitle);
+       $mtitle = str_replace(']', '', $mtitle);
+       $mtitle = str_replace('.', '', $mtitle);
+       $mtitle = str_replace('?', '', $mtitle);
+       $fuuid = $obj->documents[$index]->uuid;
+       $fuobj  = mend_api($fuuid);
+       if ( (strtolower($title) == strtolower($mtitle))
+          || ($doi == $fdoi) )   { 
+         $fpmid =$fuobj->identifiers->pmid;
+         if ((strtolower($title) == strtolower($mtitle))) 
+           { $matched_on = "matched on title  $fdoi"; } 
+         if ($doi == $fdoi) { $matched_on = "matched doi $fdoi"; } 
+         if ($pmid !='' && $fpmid != '' && $pmid == $fpmid) { $matched_on = "matched pmid $fpmid"; } 
+         if ($fuobj ) {
+           $ureaders .=  "<li> $ftitle $matched_on ($fuuid)";
+           $ureaders .= "<br/><b>Readers:</b>".$fuobj->stats->readers . "";
+           $ureaders .= "<br/><a href=".$fuobj->mendeley_url . ">Mendeley URL</a></li>";
+           $uvreaders = $fuobj->stats->readers;
+           $uvreaders++;
+           $tot_readers += $uvreaders;
+           $found = 1;
+         }
+       }
+    }
+ }
+}
+
+    if ($ureaders) {
+         echo "\n";
+         echo "Similar Titles\n";
+         echo "$ureaders \n";
+         echo "Total Readers $tot_readers \n";
+         echo "Totals increased by one to count \n";
+         echo "original submitter.\n";
+         echo "\n";
+    }
+  }
+         echo "</fieldset>";
+}
+if ($dodata) { $title = $doi = $pmid = ''; }
 if($title) {
   $doi = $_POST['doi']; 
   $pmid = $_POST['pmid']; 
@@ -122,6 +201,10 @@ if($title) {
         <dl>
             <dt><label for="doi">DOI:</label></dt>
             <dd><input type="text" value="$doi" name="doi" id="doi" size="32" maxlength="128" /></dd>
+        </dl>
+        <dl>
+            <dt><label for="dodata">Put data here Title|Author|doi|pmid</label></dt>
+            <dd><textarea type="text" value="$doi" name="dodata" id="dodata" rows="8" cols="70"></textarea></dd>
         </dl>
         <dl><dt>OR You can upload a file to process.  Supply an email address here.</dt><dd>
         <input type="text" name="email" id="email" size="32" maxlength="128" />
