@@ -14,6 +14,7 @@ include("ck.php");
 <body>
 <div id="container">
 EOF;
+if ($CK == $CKNONE) { echo "$CKNONE"; exit(0); }
 if ($_FILES['uploadedfile']['tmp_name']) {
 $uploaddir = '/home1/fireisbo/www/retract/upload/input/';
 $sfn=$_SERVER["SCRIPT_FILENAME"];
