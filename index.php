@@ -129,7 +129,9 @@ if($dodata) {
   }
          echo "</fieldset>";
 }
-if ($dodata) { $title = $doi = $pmid = ''; }
+
+if ($dodata) { $otitle=$title = $doi = $pmid = ''; }
+
 if($title) {
   $doi = $_POST['doi']; 
   $pmid = $_POST['pmid']; 
@@ -203,7 +205,7 @@ if($title) {
             <dd><input type="text" value="$doi" name="doi" id="doi" size="32" maxlength="128" /></dd>
         </dl>
         <dl>
-            <dt><label for="dodata">Put data here Title|Author|doi|pmid</label></dt>
+            <dt><label for="dodata">OR<br/>Put data here<br/>title|auth|doi|pmid</label></dt>
             <dd><textarea type="text" value="$doi" name="dodata" id="dodata" rows="8" cols="70"></textarea></dd>
         </dl>
         <dl><dt>OR You can upload a file to process.  Supply an email address here.</dt><dd>
