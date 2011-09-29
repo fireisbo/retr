@@ -217,10 +217,14 @@ if($title) {
         </dd></dt>
         </dl>
         <dl><dt>*:</dt><dd>Required</dd></dl>
-        <dl><dt>**:</dt><dd>File must have each search on a single line, with fields separated by the '|
-' symbol.  Only the title field is required, but others must be null. For example,
+        <dl><dt><b>**</b>:</dt><dd>File must have each search on a single line, with fields separated by the '|
+' symbol.  Only the title field is required, but others may be null. 
 <br/>
-Why most published research findings are false||| is valid.
+title|author|doi|pmid
+<br/>
+For example,
+<br/>
+Why most published research findings are false|||
 <br/>
 or
 <br/>
@@ -229,6 +233,8 @@ Why most published research findings are false||10.1371/journal.pmed.0020124|
 or
 <br/>
 Why most published research findings are false||10.1371/journal.pmed.0020124|16060722
+<br/>
+are all valid.
 
 </dd></dl>
     </fieldset>
