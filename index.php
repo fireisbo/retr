@@ -62,7 +62,6 @@ if($dodata) {
     if ($pos === false){ continue;}
     list($title,$author,$doi,$pmid) = explode('|',$buffer);
     if($title) {
-    echo "<hr>****" . "Duplication information for \"$title\""  . "\n\n";
     $tit_enc = urlencode($title);
     $P="http://api.mendeley.com/oapi/documents/search/$tit_enc?consumer_key=$CK";
     $text=file_get_contents($P);
@@ -225,31 +224,32 @@ if ( $otitle != '' && $ureaders) {
             <dt><label for="pmid">PMID:</label></dt>
             <dd><input type="text" value="$pmid" name="pmid" id="pmid" size="32" maxlength="128" /></dd>
         </dl>
-        <dl><dt>OR Choose a file to upload:<br/>
-          <b>See format note below**</b></dt>
+        <dl><dt>OR Upload a batch file<br/>
+        </dt>
         <dd><input name="uploadedfile" type="file" /></dd>
         </dl>
-        <dl><dt>Results will be sent to this email address.</dt><dd>
+        <dl><dt></dt>
+        <dd>
         <input type="text" name="email" id="email" size="32" maxlength="128" />
+        <br/>Results will be sent to this email address.
         </dd></dl>
         <dl><dt><dd>
     	<input type="submit" name="submit" id="submit" value="SUBMIT" />
         </dd></dt>
         </dl>
         <dl><dt><b>Note **</b>:</dt><dd><p class="compact">File must have each search on a single line, with fields separated by the '|
-' symbol.  Only the title field is required, but others may be empty. 
-<br/>
+' symbol in the following order. Only the title field is required. Others may be empty. 
+<br/><b>
 title|author|doi|pmid
-<br/>
-For example,<br/>
+</b><br/>
+The following examples are all valid:<br/>
 Why most published research findings are false|||
-<br/>or<br/>
+<br/>
 Why most published research findings are false||10.1371/journal.pmed.0020124|
-<br/>or<br/>
+<br/>
 Why most published research findings are false||10.1371/journal.pmed.0020124|16060722
 <br/>
-are all valid.
-
+The file will take about 1 hour for each 20 records.
 </p></dd></dl>
     </fieldset>
     </fieldset>
