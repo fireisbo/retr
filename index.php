@@ -237,8 +237,9 @@ if ( $otitle != '' && $ureaders) {
     	<input type="submit" name="submit" id="submit" value="SUBMIT" />
         </dd></dt>
         </dl>
-        <dl><dt><b>Note *</b></dt><dd><p class="compact">File must have each search on a single line, with fields separated by the '|' symbol in the following order. Only the title field is required. Others may be empty. 
+        <dl><dt><b>Note *</b></dt><dd><p class="compact">File must have each search on a single line, with fields separated by the '|' symbol in the following order. 
 <br/><b> title| author| doi| pmid </b><br/>
+Only the title field is required. Others may be empty. 
 The following examples are all valid:<br/>
 <br/>
 Why most published research findings are false||10.1371/journal.pmed.0020124|16060722
