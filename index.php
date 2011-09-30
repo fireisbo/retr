@@ -20,6 +20,7 @@ if ($_FILES['uploadedfile']['tmp_name']) {
 $uploaddir = '/home1/fireisbo/www/retract/upload/input/';
 $sfn=$_SERVER["SCRIPT_FILENAME"];
 $sfn = str_replace("/index.php", "",$sfn);
+$showf = str_replace(" ", "_",basename($_FILES['uploadedfile']['name']));
 $newfile = str_replace(" ", "_",basename($_FILES['uploadedfile']['name']));
 $uploadfile = $sfn . '/upload/input/' . $newfile;
 $email = $_POST['email'];
@@ -38,9 +39,9 @@ EOF;
     #echo "data is $data";
     $hrs = ($lines/20) + 1;
     $hrsx = ($lines/20) + 2;
-    echo "<dl><dt></dt><dd>File has been uploaded. Since it contains $lines lines, it will take";
-    echo "approximately $hrs/$hrsx hrs to process. You will receive an email when it completes.";
-    echo "The file will be available in http://www.fireisborn/retract/upload/output/$newfile.out"; 
+    echo "<dl><dt></dt><dd>Your file ($showf) has been uploaded. Since it contains $lines lines, it may take ";
+    echo "up to $hrsx hrs to process. You will receive an email when it completes.";
+    echo "The results file will be available at this <a href='http://www.fireisborn.org/retract/upload/output/$newfile.out'>link</a>"; 
      echo "</dd></dl></fieldset>";
     fclose($fh);
     $fh = fopen($uploadfile,"w+");
@@ -224,7 +225,7 @@ if ( $otitle != '' && $ureaders) {
             <dt><label for="pmid">PMID:</label></dt>
             <dd><input type="text" value="$pmid" name="pmid" id="pmid" size="32" maxlength="128" /></dd>
         </dl>
-        <dl><dt>OR Upload a batch file<br/>
+        <dl><dt>OR Upload a batch file*<br/>
         </dt>
         <dd><input name="uploadedfile" type="file" /></dd>
         </dl>
@@ -237,19 +238,16 @@ if ( $otitle != '' && $ureaders) {
     	<input type="submit" name="submit" id="submit" value="SUBMIT" />
         </dd></dt>
         </dl>
-        <dl><dt><b>Note **</b>:</dt><dd><p class="compact">File must have each search on a single line, with fields separated by the '|
-' symbol in the following order. Only the title field is required. Others may be empty. 
-<br/><b>
-title|author|doi|pmid
-</b><br/>
+        <dl><dt><b>Note *</b></dt><dd><p class="compact">File must have each search on a single line, with fields separated by the '|' symbol in the following order. Only the title field is required. Others may be empty. 
+<br/><b> title| author| doi| pmid </b><br/>
 The following examples are all valid:<br/>
-Why most published research findings are false|||
-<br/>
-Why most published research findings are false||10.1371/journal.pmed.0020124|
 <br/>
 Why most published research findings are false||10.1371/journal.pmed.0020124|16060722
+Why most published research findings are false||10.1371/journal.pmed.0020124|
 <br/>
-The file will take about 1 hour for each 20 records.
+Why most published research findings are false|||
+<br/>
+Due to search restrictions, processing time is about 3 minutes per line.
 </p></dd></dl>
     </fieldset>
     </fieldset>

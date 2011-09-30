@@ -52,9 +52,9 @@ while ( ($buffer = fgets($fh)) !== false) {
          if ($doi == $fdoi) { $matched_on = "matched doi $fdoi"; } 
          if ($pmid !='' && $fpmid != '' && $pmid == $fpmid) { $matched_on = "matched pmid $fpmid"; } 
          if ($fuobj ) {
-           $ureaders .=  "<li> $ftitle $matched_on ($fuuid)";
+           $ureaders .=  "$ftitle $matched_on ($fuuid)";
            $ureaders .= "<br/><b>Readers:</b>".$fuobj->stats->readers . "";
-           $ureaders .= "<br/><a href=".$fuobj->mendeley_url . ">Mendeley URL</a></li>";
+           $ureaders .= "<br/><a href=".$fuobj->mendeley_url . ">Mendeley URL</a>";
            $uvreaders = $fuobj->stats->readers;
            $uvreaders++;
            $tot_readers += $uvreaders;
@@ -73,7 +73,11 @@ if ($ureaders) {
          echo "Totals increased by one to count \n";
          echo "original submitter.\n";
          echo "\n";
+} else {
+         echo "\n";
+         echo "No matches\n";
 }
+
 }
 
  exit (0);
