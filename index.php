@@ -137,7 +137,6 @@ if ($dodata) { $otitle=$title = $doi = $pmid = ''; }
 if($title) {
   $doi = $_POST['doi']; 
   $pmid = $_POST['pmid']; 
-  echo "<h2>" . "Duplication information for \"$title\""  . "</h2><br/>\n";
   $tit_enc = urlencode($title);
   $P="http://api.mendeley.com/oapi/documents/search/$tit_enc?consumer_key=$CK";
   $text=file_get_contents($P);
@@ -247,7 +246,7 @@ Why most published research findings are false||10.1371/journal.pmed.0020124|
 <br/>
 Why most published research findings are false|||
 <br/>
-Due to search restrictions, processing time is about 3 minutes per line.
+Batch search is restricted to 20 searches per hour.
 </p></dd></dl>
     </fieldset>
     </fieldset>
