@@ -9,7 +9,7 @@ the oldest file in the input directory is selected for processing, and
 moving it to the work directory, creating a lock file in that directory
 and executing backproc.sh in the background with the selected file
 as argument.  this script,backproc.sh, might
-run for a seemingling long time (hours) , as we can only do small amounts of work
+run for a seemingling long time (hours), as we can only do small amounts of work
 every hour -- roughly only 20 records per hour are processed because of
 mendeley throttling constraints.
 while this file exists in the work directory, no other job will be selected
@@ -22,3 +22,7 @@ and the lock is removed from the work directory.
 
 The input file is not modified, and the output file is available on the
 web from the output directory.
+
+Installation
+To install this,you must set the runmen.sh script to run every hour.
+When it runs it should find its own input directory.
